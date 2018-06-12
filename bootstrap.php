@@ -20,6 +20,7 @@ $this->on('before', function() {
 
         if ($cache['eol'] < time()) {
             unlink($file);
+            return;
         }
 
         $this->response->body = $cache['contents'];
