@@ -6,7 +6,7 @@ if (!COCKPIT_API_REQUEST) {
 }
 
 // Is cache request?
-if (!isset($_REQUEST['_srcache'])) {
+if (!isset($_REQUEST['rspc'])) {
     return;
 }
 
@@ -28,7 +28,8 @@ $this->on('before', function() {
 
         $this->stop();
     }
-});
+
+}, 2000);
 
 $this->on('after', function() {
 
@@ -39,7 +40,8 @@ $this->on('after', function() {
     $hash = trim(COCKPIT_ADMIN_ROUTE.'/'.md5(serialize($_REQUEST)), '/').'.php';
 
     $this->filestorage->put("tmp://apicache/{$hash}", '<?php return '.var_export([
-        'eol' => (time() + $this->retrieve('config/cache/duration', 60)),
+        'eol' => (time() + $this->retrieve('config/responseCache/duration', 60)),
         'contents' => $this->response->body
     ], true ).';');
-});
+
+}, -2000);

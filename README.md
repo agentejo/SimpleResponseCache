@@ -2,19 +2,19 @@ Add files to `addons/SimpleResponseCache`.
 
 # Configuration
 
-Define cache duration (default is 60 sec) in `config/cache.yaml`:
+Define cache duration (default is 60 sec) in `config/config.yaml`:
 
 ```
-cache:
+responseCache:
     duration: 60
 ```
 
 # Usage
 
-append `_srcache=1` to your api calls you want to be cached:
+append `rspc=1` to your api calls you want to be cached:
 
 ```
-/api/collection/get/{name}?token=*apitoken*&_srcache=1
+/api/collection/get/{name}?token=*apitoken*&rspc=1
 ```
 
 
