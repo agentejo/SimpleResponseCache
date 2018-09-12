@@ -41,7 +41,7 @@ $this->on('after', function() {
 
     $this->filestorage->put("tmp://apicache/{$hash}", '<?php return '.var_export([
         'eol' => (time() + $this->retrieve('config/responseCache/duration', 60)),
-        'contents' => $this->response->body
+        'contents' => is_object($this->response->body) ? json_decode(json_encode($this->response->body), true) : $this->response->body
     ], true ).';');
 
 }, -2000);
