@@ -11,6 +11,8 @@ $this->module('simpleresponsecache')->extend([
         if ($path) {
             $this->app->helper('fs')->delete($path);
         }
+
+        return false;
     }
 ]);
 

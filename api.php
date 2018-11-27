@@ -1,7 +1,13 @@
 <?php
 
+
+$this->on('cockpit.rest.init', function($routes) {
+    $routes['rspc'] = 'SimpleResponseCache\\Controller\\RestApi';
+});
+
+
 // Is cache request?
-if (!isset($_REQUEST['rspc'])) {
+if (!isset($_REQUEST['rspc']) || preg_match('#^/api/rspc#i', $this['route'])) {
     return;
 }
 
@@ -18,6 +24,7 @@ $this->on('before', function() {
             return;
         }
 
+        $this->response->headers[] = 'COCKPIT_RSP_CACHE: true';
         $this->response->body = $cache['contents'];
         $this->response->flush();
 
