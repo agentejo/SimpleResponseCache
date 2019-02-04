@@ -28,6 +28,8 @@ $this->on('before', function() {
         $this->response->body = $cache['contents'];
         $this->response->flush();
 
+        $this->trigger('simpleresponsecache.after');
+
         $this->stop();
     }
 

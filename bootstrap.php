@@ -28,5 +28,5 @@ $this->on('collections.save.after', function($name) {
 });
 
 $this->on('singleton.save.after', function($singleton) {
-    $this->module('simpleresponsecache')->clear("api/collections/get/{$singleton['name']}");
+    $this->module('simpleresponsecache')->clear("api/singletons/get/{$singleton['name']}");
 });
