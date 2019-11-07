@@ -14,13 +14,14 @@ if (!isset($_REQUEST['rspc']) || preg_match('#^/api/rspc#i', $this['route'])) {
 $this->on('before', function() {
 
     $hash = trim(COCKPIT_ADMIN_ROUTE.'/'.md5(serialize($_REQUEST)), '/').'.php';
+    $file = $this->path("#tmp:apicache/{$hash}");
 
-    if ($file = $this->path("#tmp:apicache/{$hash}")) {
+    if ($file) {
 
         $cache = include($file);
 
         if ($cache['eol'] < time()) {
-            unlink($file);
+            @unlink($file);
             return;
         }
 
