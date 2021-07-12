@@ -17,7 +17,12 @@ $this->on('before', function() {
 
     if ($file) {
 
-        $cache = include($file);
+        try {
+            $cache = include($file);
+        } catch(\Throwable $e) {
+            @unlink($file);
+            return;
+        }
 
         if ($cache['eol'] < time()) {
             @unlink($file);
